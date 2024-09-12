@@ -4,10 +4,22 @@ import {sentryVitePlugin} from "@sentry/vite-plugin"
 import sitemap from "./sitemap"
 import gtm from "./gtm"
 
+let cssAssets = [
+    '~/scss/app.scss',
+]
+
+if (typeof process.env.NUXT_THEME_STYLESHEET === 'string' && process.env.NUXT_THEME_STYLESHEET !== '') {
+    cssAssets = [process.env.NUXT_THEME_STYLESHEET]
+}
+
+if (typeof process.env.NUXT_THEME_ADDITIONAL_STYLESHEET === 'string' && process.env.NUXT_THEME_ADDITIONAL_STYLESHEET !== '') {
+    cssAssets.push(process.env.NUXT_THEME_ADDITIONAL_STYLESHEET)
+}
+
 export default defineNuxtConfig({
     loglevel: process.env.NUXT_LOG_LEVEL || 'info',
     devtools: {enabled: true},
-    css: ['~/scss/app.scss'],
+    css: cssAssets,
     modules: [
         '@pinia/nuxt',
         '@vueuse/nuxt',
@@ -67,7 +79,7 @@ export default defineNuxtConfig({
         }
     },
     tailwindcss: {
-        cssPath: ['~/scss/app.scss']
+        cssPath: cssAssets
     },
     colorMode: {
         preference: 'light',

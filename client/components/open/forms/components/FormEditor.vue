@@ -196,6 +196,7 @@ export default {
       appStore: useAppStore(),
       crisp: useCrisp(),
       amplitude: useAmplitude(),
+      runtimeConfig: useRuntimeConfig(),
       opnformConfig,
       workspace,
       formsStore,
@@ -222,7 +223,7 @@ export default {
         {
           target: "#v-step-0",
           header: {
-            title: "Welcome to the OpnForm Editor!",
+            title: `Welcome to the ${runtimeConfig.public.appName}</span>} Editor!`,
           },
           content: "Discover <strong>your form Editor</strong>!",
         },

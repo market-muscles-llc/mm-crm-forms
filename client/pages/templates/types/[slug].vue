@@ -60,6 +60,7 @@ defineRouteRules({
 
 const route = useRoute()
 const templatesStore = useTemplatesStore()
+const runtimeConfig = useRuntimeConfig()
 
 loadAllTemplates(templatesStore)
 
@@ -105,10 +106,10 @@ useHead({
       !type.value.meta_title.toLowerCase().includes("opnform")
     ) {
       return titleChunk
-        ? `${titleChunk} - OpnForm`
-        : "Form Templates - OpnForm"
+        ? `${titleChunk} - ${runtimeConfig.public.appName}`
+        : `Form Templates - ${runtimeConfig.public.appName}`
     }
-    return titleChunk ? titleChunk : "Form Templates - OpnForm"
+    return titleChunk ? titleChunk : `Form Templates - ${runtimeConfig.public.appName}`
   },
 })
 </script>

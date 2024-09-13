@@ -15,6 +15,7 @@ function parseNumber(value, defaultValue = 0) {
 export default {
   // Keys within public, will be also exposed to the client-side
   public: {
+    appName: process.env.NUXT_PUBLIC_APP_NAME || 'OpnForm',
     apiBase: process.env.NUXT_PUBLIC_API_BASE || '',
     appUrl: process.env.NUXT_PUBLIC_APP_URL || '',
     env: process.env.NUXT_PUBLIC_ENV || 'local',
@@ -27,6 +28,8 @@ export default {
 
     displayHeader: process.env.NUXT_THEME_DISPLAY_HEADER !== undefined ? parseBoolean(process.env.NUXT_THEME_DISPLAY_HEADER) : true,
     displayFooter: process.env.NUXT_THEME_DISPLAY_FOOTER !== undefined ? parseBoolean(process.env.NUXT_THEME_DISPLAY_FOOTER) : true,
+
+    brandingLink: process.env.NUXT_THEME_BRANDING_LINK !== undefined ? process.env.NUXT_THEME_BRANDING_LINK : "https://opnform.com?utm_source=form&utm_content=powered_by",
 
     // Config within public will be also exposed to the client
     SENTRY_DSN_PUBLIC: process.env.SENTRY_DSN_PUBLIC,

@@ -142,11 +142,11 @@
           class="text-center w-full mt-2"
         >
           <a
-            href="https://opnform.com?utm_source=form&utm_content=powered_by"
+            :href="runtimeConfig.public.brandingLink"
             class="text-gray-400 hover:text-gray-500 dark:text-gray-600 dark:hover:text-gray-500 cursor-pointer hover:underline text-xs"
             target="_blank"
           >
-            Powered by <span class="font-semibold">OpnForm</span>
+            Powered by <span class="font-semibold">{{ runtimeConfig.public.appName }}</span>
           </a>
         </p>
       </div>
@@ -186,10 +186,10 @@
         >
           <a
             target="_parent"
-            href="https://opnform.com/?utm_source=form&utm_content=create_form_free"
+            :href="runtimeConfig.public.brandingLink"
             class="text-nt-primary hover:underline"
           >
-            Create your form for free with OpnForm
+            Powered by <span class="font-semibold">{{ runtimeConfig.public.appName }}</span>
           </a>
         </p>
       </div>
@@ -225,7 +225,8 @@ export default {
     return {
       isIframe: useIsIframe(),
       pendingSubmission: pendingSubmission(props.form),
-      confetti: useConfetti()
+      confetti: useConfetti(),
+      runtimeConfig: useRuntimeConfig(),
     }
   },
 

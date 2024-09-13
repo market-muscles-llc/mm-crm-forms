@@ -155,10 +155,10 @@
     >
       <template #label>
         <span class="text-sm">
-          Remove OpnForm Branding
+          Remove {{ runtimeConfig.public.appName }} Branding
         </span>
         <pro-tag
-          upgrade-modal-title="Upgrade today to remove OpnForm branding"
+          :upgrade-modal-title="`Upgrade today to remove ${runtimeConfig.public.appName} branding`"
           class="-mt-1"
         />
       </template>
@@ -205,6 +205,7 @@ import EditorOptionsPanel from "../../../editors/EditorOptionsPanel.vue"
 import GoogleFontPicker from "../../../editors/GoogleFontPicker.vue"
 import ProTag from "~/components/global/ProTag.vue"
 
+const runtimeConfig = useRuntimeConfig()
 const workingFormStore = useWorkingFormStore()
 const subscriptionModalStore = useSubscriptionModalStore()
 const authStore = useAuthStore()
@@ -235,7 +236,7 @@ const onChangeConfettiOnSubmission = (val) => {
 
 const onChangeNoBranding = (val) => {
   if (!isPro.value && val) {
-    subscriptionModalStore.setModalContent("Upgrade today to remove OpnForm branding")
+    subscriptionModalStore.setModalContent(`Upgrade today to remove ${runtimeConfig.public.appName} branding`)
     subscriptionModalStore.openModal()
     setTimeout(() => {
       form.value.no_branding = false

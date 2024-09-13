@@ -52,6 +52,8 @@
 <script setup>
 import IntegrationWrapper from "./components/IntegrationWrapper.vue"
 
+const runtimeConfig = useRuntimeConfig()
+
 const props = defineProps({
   integration: { type: Object, required: true },
   form: { type: Object, required: true },
@@ -82,7 +84,7 @@ const emailSubmissionConfirmationHelp = computed(() => {
 onBeforeMount(() => {
   for (const [keyname, defaultValue] of Object.entries({
     respondent_email: emailSubmissionConfirmationField.value !== null,
-    notification_sender: "OpnForm",
+    notification_sender: runtimeConfig.public.appName,
     notification_subject: "We saved your answers",
     notification_body:
       "Hello there 👋 <br>This is a confirmation that your submission was successfully saved.",

@@ -43,7 +43,7 @@
         </p>
         <p class="mb-10 mt-4">
           <router-link :to="{name:'index'}">
-            Create your form for free with OpnForm
+            Create your form for free with {{ runtimeConfig.public.appName }}
           </router-link>
         </p>
       </div>
@@ -88,6 +88,7 @@ const formsStore = useFormsStore()
 const recordsStore = useRecordsStore()
 const darkMode = useDarkMode()
 const isIframe = useIsIframe()
+const runtimeConfig = useRuntimeConfig()
 const formLoading = computed(() => formsStore.loading)
 const recordLoading = computed(() => recordsStore.loading)
 const slug = useRoute().params.slug
@@ -240,7 +241,7 @@ useHead({
       // Disable template if custom SEO title
       return titleChunk
     }
-    return titleChunk ? `${titleChunk} - OpnForm` : 'OpnForm'
+    return titleChunk ? `${titleChunk} - ${runtimeConfig.public.appName}` : runtimeConfig.public.appName
   },
   link: headLinks.value,
   meta: pageMeta.value.page_favicon ? [

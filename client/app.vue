@@ -78,7 +78,7 @@ export default {
     })
     useHead({
       titleTemplate: (titleChunk) => {
-        return titleChunk ? `${titleChunk} - OpnForm` : "OpnForm"
+        return titleChunk ? `${titleChunk} - ${config.public.appName}` : config.public.appName
       },
       meta: [
         {

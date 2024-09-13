@@ -23,7 +23,7 @@
         </svg>
       </template>
       <template #title>
-        Login to OpnForm
+        Login to {{ runtimeConfig.public.appName }}
       </template>
       <div class="px-4">
         <login-form
@@ -87,6 +87,12 @@ export default {
     },
   },
   emits: ['afterLogin', 'close', 'reopen'],
+
+  setup() {
+    return {
+      runtimeConfig: useRuntimeConfig(),
+    }
+  },
 
   data: () => ({
     showLoginModal: false,

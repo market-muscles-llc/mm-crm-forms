@@ -37,6 +37,7 @@ const workspacesStore = useWorkspacesStore()
 const formsStore = useFormsStore()
 const logEvent = useAmplitude().logEvent
 const loading = ref(true)
+const runtimeConfig = useRuntimeConfig()
 
 definePageMeta({
     alias: '/oauth/:provider/callback'
@@ -77,7 +78,7 @@ function handleCallback() {
         } else {
             logEvent("register", { source: provider })
             router.push({ name: "forms-create" })
-            useAlert().success("Success! You're now registered with your Google account! Welcome to OpnForm.")
+            useAlert().success(`Success! You're now registered with your Google account! Welcome to ${runtimeConfig.public.appName}.`)
             try {
                 useGtm().trackEvent({
                     event: 'register',

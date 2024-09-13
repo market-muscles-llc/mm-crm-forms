@@ -1,5 +1,8 @@
 <template>
-  <div class="w-full">
+  <div
+    v-if="runtimeConfig.public.displayFooter"
+    class="w-full"
+  >
     <div class="grid md:grid-cols-3 my-8">
       <div class="flex mt-2 items-center">
         <p class="text-sm text-gray-600 dark:text-gray-400 text-center w-full">
@@ -80,6 +83,7 @@ export default {
     return {
       user: computed(() => authStore.user),
       appStore: useAppStore(),
+      runtimeConfig: useRuntimeConfig(),
       opnformConfig,
     }
   },

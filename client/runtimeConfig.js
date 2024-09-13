@@ -25,6 +25,9 @@ export default {
     
     featureBaseOrganization: process.env.NUXT_PUBLIC_FEATURE_BASE_ORGANISATION || null,
 
+    displayHeader: process.env.NUXT_THEME_DISPLAY_HEADER !== undefined ? parseBoolean(process.env.NUXT_THEME_DISPLAY_HEADER) : true,
+    displayFooter: process.env.NUXT_THEME_DISPLAY_FOOTER !== undefined ? parseBoolean(process.env.NUXT_THEME_DISPLAY_FOOTER) : true,
+
     // Config within public will be also exposed to the client
     SENTRY_DSN_PUBLIC: process.env.SENTRY_DSN_PUBLIC,
     SENTRY_TRACES_SAMPLE_RATE: parseNumber(process.env.SENTRY_TRACES_SAMPLE_RATE),

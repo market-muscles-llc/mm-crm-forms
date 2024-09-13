@@ -1,0 +1,23 @@
+name: mm-form-ui
+services:
+  appserver_nginx:
+    type: nginx
+    ssl: true
+    webroot: public
+    config:
+      vhosts: .lando/default.conf
+  appserver:
+    type: node:20
+    command: HOST=0.0.0.0 PORT=3000 npm run dev
+    scanner: false
+    portforward: 3000
+    build:
+      - npm install
+tooling:
+  node:
+    service: appserver
+  yarn:
+    service: appserver
+proxy:
+  appserver_nginx:
+    - mm-form-ui.lndo.site

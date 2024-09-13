@@ -1,0 +1,15 @@
+name: mm-form
+recipe: laravel
+config:
+  via: nginx
+  php: "8.3"
+  database: postgres
+  webroot: public
+  cache: redis
+services:
+  node: disabled
+  appserver:
+    composer_version: 2
+proxy:
+  appserver_nginx:
+    - mm-form.lndo.site

@@ -4,6 +4,7 @@
  * External API calls
  */
 
+use App\Http\Controllers\Admin\CreateOneTimePasswordController;
 use App\Http\Controllers\Integrations\Zapier;
 use App\Http\Controllers\Integrations\Zapier\ListFormsController;
 use App\Http\Controllers\Integrations\Zapier\ListWorkspacesController;
@@ -11,6 +12,12 @@ use App\Http\Controllers\Integrations\Zapier\ListWorkspacesController;
 Route::prefix('external')
     ->middleware('auth:sanctum')
     ->group(function () {
+        Route::prefix('admin')
+            ->middleware('moderator')
+            ->group(function () {
+                Route::post('one-time-password/create', CreateOneTimePasswordController::class);
+            });
+
         Route::prefix('zapier')->name('zapier.')->group(function () {
             Route::get('validate', Zapier\ValidateAuthController::class)
                 ->name('validate');

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\OAuthController;
+use App\Http\Controllers\Auth\OneTimePasswordController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\UserController;
@@ -274,6 +275,8 @@ Route::group(['middleware' => 'guest:api'], function () {
     Route::post('oauth/{provider}', [OAuthController::class, 'redirect']);
     Route::post('oauth/connect/{provider}', [OAuthController::class, 'redirect'])->name('oauth.redirect');
     Route::post('oauth/{provider}/callback', [OAuthController::class, 'handleCallback'])->name('oauth.callback');
+
+    Route::post('one-time-password/login', [OneTimePasswordController::class, 'login'])->name('one-time-password.login');
 });
 
 Route::group(['prefix' => 'appsumo'], function () {

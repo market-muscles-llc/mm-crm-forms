@@ -19,7 +19,7 @@ class CreateOneTimePasswordController extends Controller
     {
         $request->validate([
             'workspace_id' => ['required', 'integer'],
-            'crm_user_id' => 'required',
+            'external_user_id' => 'required',
         ]);
 
         $workspace = Workspace::query()->with('owners')->findOrFail(
@@ -27,7 +27,7 @@ class CreateOneTimePasswordController extends Controller
         );
 
         $code = Cache::remember(
-            key: "{$request->input("crm_user_id")}-one-time-password",
+            key: "{$request->input("external_user_id")}-one-time-password",
             ttl: (60 * 15), // 15 minutes,
             callback: function () use ($workspace) {
                 return [

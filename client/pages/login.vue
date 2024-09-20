@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div class="flex mt-6 mb-10">
+    <OneTimePassword v-if="oneTimePasswordState.pendingResolution" />
+    <div
+      v-else
+      class="flex mt-6 mb-10"
+    >
       <div
         class="w-full md:max-w-6xl mx-auto px-4 flex md:flex-row-reverse flex-wrap"
       >
@@ -85,6 +89,8 @@
 
 <script setup>
 import LoginForm from "~/components/pages/auth/components/LoginForm.vue"
+import OneTimePassword from "~/components/pages/auth/components/OneTimePassword.vue"
+import { state as oneTimePasswordState } from '~/lib/one-time-password-login.js'
 
 definePageMeta({
   middleware: "guest",

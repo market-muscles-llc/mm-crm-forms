@@ -6,7 +6,7 @@
   >
     <!--  Navbar  -->
     <div class="w-full border-b p-2 flex items-center justify-between bg-white">
-      <a
+      <!-- <a
         v-if="backButton"
         href="#"
         class="ml-2 flex text-primary font-semibold text-sm"
@@ -27,17 +27,17 @@
           />
         </svg>
         Go back
-      </a>
+      </a> -->
 
       <UndoRedo />
 
-      <div class="hidden md:flex items-center ml-3">
+      <!-- <div class="hidden md:flex items-center ml-3">
         <h3 class="font-semibold text-lg max-w-[14rem] truncate text-gray-500">
           {{ form.title }}
         </h3>
-      </div>
+      </div> -->
 
-      <div
+      <!--<div
         class="flex items-center"
         :class="{ 'mx-auto md:mx-0': !backButton }"
       >
@@ -79,7 +79,7 @@
             Save Changes
           </template>
         </v-button>
-      </div>
+      </div>-->
     </div>
     <FormEditorErrorHandler>
 
@@ -262,13 +262,36 @@ export default {
   mounted() {
     this.$emit("mounted")
     this.appStore.hideNavbar()
+    this.announceEvent("OPNFORM_MOUNTED")
+
+    window.addEventListener("message", this.listenToControls)
   },
 
   beforeUnmount() {
     this.appStore.showNavbar()
+    window.removeEventListener("message", this.listenToControls)
   },
 
   methods: {
+    announceEvent(messageName, data) {
+      window.parent.postMessage(
+        {
+          message: messageName,
+          ...data
+        },
+        "*",
+      )
+    },
+    listenToControls({ data }) {
+      switch (data?.message) {
+        case "OPNFORM_DO_SAVE":
+          this.saveForm()
+          break
+
+        default:
+          break
+      }
+    },
     goBack() {
       if (this.isEdit) {
         useRouter().push({ name: 'forms-slug-show-submissions', params: {slug:this.form.slug} })
@@ -314,10 +337,13 @@ export default {
         .then((data) => {
           this.formsStore.save(data.form)
           this.$emit("on-save")
-          this.$router.push({
-            name: "forms-slug-show-share",
-            params: { slug: this.form.slug },
-          })
+          // this.$router.push({
+          //   name: "forms-slug-show-share",
+          //   params: { slug: this.form.slug },
+          // })
+
+          this.announceEvent("OPNFORM_SAVED")
+
           this.amplitude.logEvent("form_saved", {
             form_id: this.form.id,
             form_slug: this.form.slug,
@@ -361,13 +387,15 @@ export default {
             form_slug: response.form.slug,
           })
           this.displayFormModificationAlert(response)
-          useRouter().push({
-            name: "forms-slug-show-share",
-            params: {
-              slug: this.createdFormSlug,
-              new_form: response.users_first_form,
-            },
-          })
+
+          // useRouter().push({
+          //   name: "forms-slug-show-share",
+          //   params: {
+          //     slug: this.createdFormSlug,
+          //     new_form: response.users_first_form,
+          //   },
+          // })
+          this.announceEvent("OPNFORM_SAVED")
         })
         .catch((error) => {
           if (error?.response?.status === 422) {

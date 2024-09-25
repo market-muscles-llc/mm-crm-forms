@@ -5,6 +5,7 @@
  */
 
 use App\Http\Controllers\Admin\CreateOneTimePasswordController;
+use App\Http\Controllers\Admin\CreateWorkspaceController;
 use App\Http\Controllers\Integrations\Zapier;
 use App\Http\Controllers\Integrations\Zapier\ListFormsController;
 use App\Http\Controllers\Integrations\Zapier\ListWorkspacesController;
@@ -15,6 +16,7 @@ Route::prefix('external')
         Route::prefix('admin')
             ->middleware('moderator')
             ->group(function () {
+                Route::post('workspace/create', CreateWorkspaceController::class);
                 Route::post('one-time-password/create', CreateOneTimePasswordController::class);
             });
 

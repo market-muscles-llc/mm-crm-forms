@@ -78,4 +78,8 @@ return [
         'enabled' => env('ZAPIER_ENABLED', false),
     ],
 
+    'external' => [
+        'submission_webhook' => env('EXTERNAL_SUBMISSION_WEBHOOK'),
+    ],
+
 ];

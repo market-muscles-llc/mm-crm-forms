@@ -4,6 +4,7 @@
  * External API calls
  */
 
+use App\Http\Controllers\Admin\CreateFormController;
 use App\Http\Controllers\Admin\CreateOneTimePasswordController;
 use App\Http\Controllers\Admin\CreateWorkspaceController;
 use App\Http\Controllers\Integrations\Zapier;
@@ -16,6 +17,7 @@ Route::prefix('external')
         Route::prefix('admin')
             ->middleware('moderator')
             ->group(function () {
+                Route::post('form/create', CreateFormController::class);
                 Route::post('workspace/create', CreateWorkspaceController::class);
                 Route::post('one-time-password/create', CreateOneTimePasswordController::class);
             });

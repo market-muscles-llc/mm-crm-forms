@@ -4,7 +4,7 @@ export default defineNitroPlugin((nitroApp) => {
     // const routePath= event.context.params._
     if (routePath && !routePath.startsWith("/forms/")) {
       // Only allow embedding of forms
-      response.headers["X-Frame-Options"] = "sameorigin"
+      // response.headers["X-Frame-Options"] = "sameorigin"
     }
 
     delete response.headers["x-powered-by"]
